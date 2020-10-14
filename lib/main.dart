@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -19,8 +20,10 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final List<Transaction> transaction = [
-    Transaction(id: 't1', title: 'Shoe', amount: 4544.50, date: DateTime.now()),
-    Transaction(id: 't2', title: 'Shirt', amount: 500.00, date: DateTime.now()),
+    Transaction(
+        id: 't1', title: 'Shoe', amount: 4544.50, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'Shirt', amount: 5850.00, date: DateTime.now()),
     Transaction(
         id: 't3', title: 'Jeans', amount: 8789.50, date: DateTime.now()),
   ];
@@ -49,12 +52,29 @@ class MyHomePage extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      child: Text(tx.amount.toString()),
+                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple)),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        '\₹ ${tx.amount}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.purple),
+                      ),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(tx.title),
-                        Text(tx.date.toString())
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(DateFormat.yMMMd().format(tx.date))
                       ],
                     )
                   ],
