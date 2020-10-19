@@ -20,18 +20,22 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           fontFamily: 'AirbnbCerealX',
           textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                    fontFamily: 'AirbnbCerealX',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
+                headline6: TextStyle(
+                  fontFamily: 'AirbnbCerealX',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+                button: TextStyle(color: Colors.black),
               ),
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
+                headline6: TextStyle(
                     fontFamily: 'AirbnbCereal',
                     fontWeight: FontWeight.bold,
-                    fontSize: 20)),
-          )),
+                    fontSize: 20),
+            ),
+          ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -52,12 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime dateTime) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: title,
         amount: amount,
-        date: DateTime.now());
+        date: dateTime);
 
     setState(() {
       _userTransaction.add(newTx);
@@ -75,6 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) => element.id == id);
+    });
   }
 
   @override
@@ -97,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransaction),
-            TransactionList(_userTransaction),
+            TransactionList(_userTransaction, _deleteTransaction),
           ],
         ),
       ),
