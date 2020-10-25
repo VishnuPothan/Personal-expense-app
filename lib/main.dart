@@ -99,7 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     //initialise var inside the widget change happen
     final mediaQuery = MediaQuery.of(context);
 
